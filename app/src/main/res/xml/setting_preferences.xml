@@ -138,6 +138,17 @@
             app:dialogTitle="应用信息获取设置(用于选择应用后的自动触发行为)"
             app:iconSpaceReserved="false"
             app:useSimpleSummaryProvider="true" />
+
+        <fun.qianxiao.originalassistant.view.MyEditTextPreference
+            app:key="@string/p_key_app_query_proxy_url"
+            app:title="渠道反代地址"
+            app:defaultValue="https://proxy.tiandivip.cc"
+            app:iconSpaceReserved="false"
+            app:useSimpleSummaryProvider="true"
+            app:summarySingleLine="true"
+            app:summaryEllipsize="middle"
+            app:editTextSingleLine="true"
+            app:editTextHint="留空则不使用反代" />
     </PreferenceCategory>
 
 

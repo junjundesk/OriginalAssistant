@@ -36,6 +36,33 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tl_game_chinese_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="中文名称"
+                app:hintTextColor="?attr/DayColorPrimaryNightWhite">
+
+                <EditText
+                    android:id="@+id/et_game_chinese_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/original_f_edit_text_padding_top"
+                    android:background="@android:color/transparent"
+                    android:maxLines="1"
+                    android:paddingStart="2dp"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_title_rank_prefix"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="标题添加【榜】"
+                android:textColor="?attr/DayDefaultTextViewNightWhite" />
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tl_game_package_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

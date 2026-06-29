@@ -9,6 +9,7 @@ package fun.qianxiao.originalassistant.bean;
 public class PostInfo {
     private CharSequence appPackageName;
     private CharSequence appName;
+    private CharSequence appChineseName;
     private CharSequence appSize;
     private CharSequence appVersionName;
     private CharSequence appVersionCode;
@@ -58,6 +59,14 @@ public class PostInfo {
 
     public void setAppName(CharSequence appName) {
         this.appName = appName;
+    }
+
+    public CharSequence getAppChineseName() {
+        return appChineseName;
+    }
+
+    public void setAppChineseName(CharSequence appChineseName) {
+        this.appChineseName = appChineseName;
     }
 
     public CharSequence getAppSize() {

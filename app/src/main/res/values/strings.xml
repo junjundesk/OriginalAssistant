@@ -5,6 +5,7 @@
     <string name="p_key_switch_title">p_key_switch_title</string>
     <string name="p_key_team_name">p_key_team_name</string>
     <string name="p_key_title_format">p_key_title_format</string>
+    <string name="p_key_switch_title_rank_prefix">p_key_switch_title_rank_prefix</string>
     <string name="post_title_format_default">【%s原创】%s.ver.%s</string>
     <string name="p_key_special_instructions">p_key_special_instructions</string>
     <string name="p_key_post_prefix">p_key_post_prefix</string>
@@ -15,6 +16,7 @@
     <string name="p_key_get_introduction_length_max">p_key_get_introduction_length_max</string>
     <string name="p_key_current_translate_api">p_key_current_translate_api</string>
     <string name="p_key_app_query_channel">p_key_app_query_channel</string>
+    <string name="p_key_app_query_proxy_url">p_key_app_query_proxy_url</string>
     <string name="p_key_clear_cache">p_key_clear_cache</string>
     <string name="p_key_switch_auto_test_tab_when_enter_app">p_key_switch_auto_test_tab_when_enter_app</string>
     <string name="setting_post_prefix_dialog_message"><![CDATA[可用以设置图文混排团队图做为首图，如\'<image>g4/M01/50/AC/rBAAdl9m4TOAA31XAAA2xWcN6N0931.jpg,720,405</image>\']]></string>

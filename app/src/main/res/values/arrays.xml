@@ -15,6 +15,7 @@
     </string-array>
 
     <string-array name="team_name_entries">
+        <item>无</item>
         <item>无邪团队</item>
         <item>初夏团队</item>
         <item>无忧团队</item>
@@ -22,6 +23,7 @@
         <item>血羽团队</item>
     </string-array>
     <string-array name="team_name_values">
+        <item></item>
         <item>无邪</item>
         <item>初夏</item>
         <item>无忧</item>
@@ -42,18 +44,10 @@
 
     <string-array name="app_query_channel">
         <item>不自动获取</item>
-        <item>手动弹窗选择</item>
-        <item>自动（All）</item>
-        <item>自动-葫芦侠</item>
-        <item>自动-TapTap</item>
-        <item>自动-百分网</item>
+        <item>自动-Google Play</item>
     </string-array>
     <string-array name="app_query_channel_value">
         <item>-3</item>
-        <item>-2</item>
         <item>-1</item>
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
 </resources>

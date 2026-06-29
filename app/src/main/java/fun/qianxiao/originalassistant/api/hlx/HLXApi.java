@@ -28,8 +28,10 @@ public interface HLXApi {
     String MARKET_ID_HLX = "tool_web";
     String UPLOAD_USE_TYPE = "1";
     int CAT_ID_ORIGINAL = 45;
+    int CAT_ID_GAME = 4;
     int CAT_ID_ACTIVITY = 94;
     int TAG_ID_ORIGINAL = 4501;
+    int TAG_ID_GAME = 402;
 
     /**
      * Check key

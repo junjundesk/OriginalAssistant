@@ -20,8 +20,8 @@ android {
         applicationId "fun.qianxiao.originalassistant"
         minSdk 23
         targetSdk 32
-        versionCode 8
-        versionName "1.6"
+        versionCode 9
+        versionName "1.7"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -103,7 +103,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:okhttp3-integration:4.12.0'
 
     // BigImageViewPager https://github.com/SherlockGougou/BigImageViewPager
-    implementation 'com.github.SherlockGougou:BigImageViewPager:androidx-7.2.3'
+    implementation 'com.github.SherlockGougou:BigImageViewPager:androidx-7.2.7'
 
     // FlycoTabLayout https://github.com/H07000223/FlycoTabLayout
     implementation 'io.github.h07000223:flycoTabLayout:3.0.0'

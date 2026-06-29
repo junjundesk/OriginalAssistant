@@ -13,10 +13,8 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import fun.qianxiao.originalassistant.R;
 import fun.qianxiao.originalassistant.appquery.AbstractAppQuerier;
-import fun.qianxiao.originalassistant.appquery.BaifenAppQuerier;
-import fun.qianxiao.originalassistant.appquery.HLXAppQuerier;
+import fun.qianxiao.originalassistant.appquery.GooglePlayAppQuerier;
 import fun.qianxiao.originalassistant.appquery.IQuery;
-import fun.qianxiao.originalassistant.appquery.TapTapAppQuerier;
 import fun.qianxiao.originalassistant.bean.AppQueryResult;
 
 /**
@@ -55,17 +53,9 @@ public class AppQueryManager {
 
     public enum AppQueryChannel {
         /**
-         * 葫芦侠
+         * Google Play
          */
-        HLX(HLXAppQuerier.class, "葫芦侠", R.drawable.logo_huluxia),
-        /**
-         * TapTap
-         */
-        TAPTAP(TapTapAppQuerier.class, "TapTap", R.drawable.logo_taptap),
-        /**
-         * 百分网
-         */
-        BAIFEN(BaifenAppQuerier.class, "百分网", R.drawable.logo_baifen);
+        GOOGLE_PLAY(GooglePlayAppQuerier.class, "Google Play", R.drawable.logo_google_play);
 
         private final Class<? extends AbstractAppQuerier<?, ?>> channel;
         private final String commonName;

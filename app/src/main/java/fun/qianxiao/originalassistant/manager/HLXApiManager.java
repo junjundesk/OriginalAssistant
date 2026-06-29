@@ -417,6 +417,21 @@ public enum HLXApiManager {
      * @param result resultListener
      */
     public void post(String key, String title, String detail, String images, boolean isRich, OnPostListener result) {
+        post(key, title, detail, images, isRich, HLXApi.CAT_ID_ORIGINAL, HLXApi.TAG_ID_ORIGINAL, result);
+    }
+
+    /**
+     * post
+     *
+     * @param key    hlx_key
+     * @param title  post title
+     * @param detail post detail
+     * @param images images, for no rich it's split by ',', such as 'g4/M01/81/5C/rBAAdmREwDyAEC3NAAHdrncekLc863.jpg,g4/M01/81/5C/rBAAdmREwDyAZSQAAADSG9V436g35.jpeg,'
+     * @param catId  post category id
+     * @param tagId  post tag id
+     * @param result resultListener
+     */
+    public void post(String key, String title, String detail, String images, boolean isRich, int catId, int tagId, OnPostListener result) {
         Map<String, String> postMap = new HashMap<>();
         postMap.put("title", title);
         postMap.put("detail", detail);
@@ -425,8 +440,8 @@ public enum HLXApiManager {
         postMap.put("_key", key);
         postMap.put("voice", "");
         postMap.put("sign", HLXUtils.sign2(postMap));
-        postMap.put("cat_id", String.valueOf(HLXApi.CAT_ID_ORIGINAL));
-        postMap.put("tag_id", String.valueOf(HLXApi.TAG_ID_ORIGINAL));
+        postMap.put("cat_id", String.valueOf(catId));
+        postMap.put("tag_id", String.valueOf(tagId));
         postMap.put("type", "0");
         postMap.put("patcha", "");
         postMap.put("lng", "0.0");

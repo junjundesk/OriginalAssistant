@@ -27,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.blankj.utilcode.util.ClipboardUtils;
@@ -55,6 +56,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import fun.qianxiao.originalassistant.MainActivity;
 import fun.qianxiao.originalassistant.R;
 import fun.qianxiao.originalassistant.activity.selectapp.SelectAppActivity;
+import fun.qianxiao.originalassistant.api.hlx.HLXApi;
 import fun.qianxiao.originalassistant.appquery.IQuery;
 import fun.qianxiao.originalassistant.base.BaseFragment;
 import fun.qianxiao.originalassistant.bean.AppQueryResult;
@@ -104,7 +106,8 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
     private DragItemHelper dragItemHelper;
 
     private IQuery.OnAppQueryListener onAppQueryListener;
-    private ITranslate.OnTranslateListener onTranslateListener;
+    private static final int POST_BOARD_ORIGINAL = 0;
+    private static final int POST_BOARD_GAME = 1;
 
     @Override
     protected void initListener() {
@@ -118,6 +121,12 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
                 setAppPicturesOptionMode(!picturesAdapter.isShowDelete(), true);
             }
         });
+
+        binding.switchTitleRankPrefix.setOnCheckedChangeListener((buttonView, isChecked) ->
+                PreferenceManager.getDefaultSharedPreferences(requireContext())
+                        .edit()
+                        .putBoolean(getString(R.string.p_key_switch_title_rank_prefix), isChecked)
+                        .apply());
 
         KeyboardUtils.registerSoftInputChangedListener(activity, height -> {
             if (height != 0) {
@@ -237,16 +246,32 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         });
         binding.fabCopyContent.setOnClickListener(view -> {
             binding.famOriginal.collapse();
-            copyContent();
+            showCopyBoardSelectDialog();
         });
         binding.fabGotoApp.setOnClickListener(view -> {
             binding.famOriginal.collapse();
             if (SettingPreferences.getBoolean(R.string.p_key_switch_post_one_key)) {
-                oneKeyPost();
+                showPostBoardSelectDialog();
             } else {
                 gotoApp();
             }
         });
+    }
+
+    private void showCopyBoardSelectDialog() {
+        new XPopup.Builder(getContext())
+                .asCenterList("选择复制格式",
+                        new String[]{"原创版块格式", "游戏版块格式"},
+                        (position, text) -> copyContent(position == POST_BOARD_GAME))
+                .show();
+    }
+
+    private void showPostBoardSelectDialog() {
+        new XPopup.Builder(getContext())
+                .asCenterList("选择发帖版块",
+                        new String[]{"原创版块发帖", "游戏版块发帖"},
+                        (position, text) -> oneKeyPost(position == POST_BOARD_GAME))
+                .show();
     }
 
     private boolean checkAllPostContent() {
@@ -309,8 +334,8 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         return list;
     }
 
-    private boolean checkTitle(PostInfo postInfo) {
-        String title = PostContentFormatUtils.getFormatTitle(postInfo);
+    private boolean checkTitle(PostInfo postInfo, boolean isGameBoard) {
+        String title = getFormatTitle(postInfo, isGameBoard);
         if (title.length() < MIN_TITLE_LENGTH) {
             ToastUtils.showShort("标题过短（" + title.length() + "/" + MIN_TITLE_LENGTH + "）\n" +
                     "\"" + title + "\"");
@@ -323,7 +348,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         return true;
     }
 
-    private void oneKeyPost() {
+    private void oneKeyPost(boolean isGameBoard) {
         String key = HlxKeyLocal.read();
         if (TextUtils.isEmpty(key)) {
             ToastUtils.showShort("未登录");
@@ -334,7 +359,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
             return;
         }
         PostInfo postInfo = getPostInfo();
-        if (!checkTitle(postInfo)) {
+        if (!checkTitle(postInfo, isGameBoard)) {
             return;
         }
         if (picturesAdapter.getItemCount() - 1 == 0) {
@@ -344,14 +369,14 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         HLXApiManager.INSTANCE.checkKey(key, (valid, errMsg) -> {
             if (valid) {
                 activity.openLoadingDialog("发帖中");
-                uploadPictureAndPost(key, postInfo);
+                uploadPictureAndPost(key, postInfo, isGameBoard);
             } else {
                 ToastUtils.showShort(errMsg);
             }
         });
     }
 
-    private void uploadPictureAndPost(String key, PostInfo postInfo) {
+    private void uploadPictureAndPost(String key, PostInfo postInfo, boolean isGameBoard) {
         ThreadUtils.executeBySingle(new ThreadUtils.SimpleTask<List<File>>() {
             @Override
             public List<File> doInBackground() throws Throwable {
@@ -376,7 +401,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
                                 ToastUtils.showShort("图片上传结果列表为空");
                                 return;
                             }
-                            oneKeyPostInner(postInfo, key, result);
+                            oneKeyPostInner(postInfo, key, result, isGameBoard);
                         } else {
                             activity.closeLoadingDialog();
                             ToastUtils.showShort(errMsg);
@@ -387,8 +412,8 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         });
     }
 
-    private String getNoRichDetailText(PostInfo postInfo) {
-        StringBuilder detail = new StringBuilder("<text>" + PostContentFormatUtils.getFormatDetail(postInfo) + "</text>");
+    private String getNoRichDetailText(PostInfo postInfo, boolean isGameBoard) {
+        StringBuilder detail = new StringBuilder("<text>" + getFormatDetail(postInfo, isGameBoard) + "</text>");
         String postPrefix = SettingPreferences.getString(R.string.p_key_post_prefix);
         if (!TextUtils.isEmpty(postPrefix)) {
             detail.insert(0, "<text>" + postPrefix + "\n" + "</text>");
@@ -413,8 +438,8 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         return stringBuilder.toString();
     }
 
-    private String getRichDetailText(PostInfo postInfo, Map<File, UploadPictureResult> picUploadResultMap) {
-        StringBuilder detail = new StringBuilder("<text>" + PostContentFormatUtils.getFormatDetail(postInfo) + "</text>");
+    private String getRichDetailText(PostInfo postInfo, Map<File, UploadPictureResult> picUploadResultMap, boolean isGameBoard) {
+        StringBuilder detail = new StringBuilder("<text>" + getFormatDetail(postInfo, isGameBoard) + "</text>");
         String postPrefix = SettingPreferences.getString(R.string.p_key_post_prefix);
         if (!TextUtils.isEmpty(postPrefix)) {
             if (postPrefix.startsWith("<image>")) {
@@ -455,24 +480,27 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         return true;
     }
 
-    private void oneKeyPostInner(PostInfo postInfo, String key, Map<File, UploadPictureResult> picUploadResultMap) {
+    private void oneKeyPostInner(PostInfo postInfo, String key, Map<File, UploadPictureResult> picUploadResultMap, boolean isGameBoard) {
         boolean isRich = SettingPreferences.getBoolean(R.string.p_key_switch_post_rich);
-        String title = PostContentFormatUtils.getFormatTitle(postInfo);
+        String title = getFormatTitle(postInfo, isGameBoard);
         String detail = "";
         String images = "";
         LogUtils.i(picUploadResultMap);
         if (isRich) {
-            detail = getRichDetailText(postInfo, picUploadResultMap);
+            detail = getRichDetailText(postInfo, picUploadResultMap, isGameBoard);
             images = "";
         } else {
-            detail = getNoRichDetailText(postInfo);
+            detail = getNoRichDetailText(postInfo, isGameBoard);
             images = getNoRichImagesText(picUploadResultMap);
         }
         if (!checkDetail(detail)) {
             activity.closeLoadingDialog();
             return;
         }
-        HLXApiManager.INSTANCE.post(key, title, detail, images, isRich, new HLXApiManager.OnPostListener() {
+        HLXApiManager.INSTANCE.post(key, title, detail, images, isRich,
+                isGameBoard ? HLXApi.CAT_ID_GAME : HLXApi.CAT_ID_ORIGINAL,
+                isGameBoard ? HLXApi.TAG_ID_GAME : HLXApi.TAG_ID_ORIGINAL,
+                new HLXApiManager.OnPostListener() {
             @Override
             public void onSuccess(PostResultInfo postResultInfo) {
                 activity.closeLoadingDialog();
@@ -491,7 +519,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
                 activity.closeLoadingDialog();
                 ToastUtils.showShort(errMsg);
             }
-        });
+                });
     }
 
     private void selectApp() {
@@ -500,6 +528,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
 
     private void cleanAllInputContent(boolean isCleanSpecialInstructions) {
         binding.etGameName.setText("");
+        binding.etGameChineseName.setText("");
         binding.etGamePackageName.setText("");
         binding.etGameSize.setText("");
         binding.etGameVersion.setText("");
@@ -526,6 +555,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
     private PostInfo getPostInfo() {
         PostInfo postInfo = new PostInfo();
         postInfo.setAppName(binding.etGameName.getText());
+        postInfo.setAppChineseName(binding.etGameChineseName.getText());
         postInfo.setAppPackageName(binding.etGamePackageName.getText());
         postInfo.setAppSize(binding.etGameSize.getText());
         postInfo.setAppVersionName(binding.etGameVersion.getText());
@@ -539,11 +569,11 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         return postInfo;
     }
 
-    private void copyContent() {
+    private void copyContent(boolean isGameBoard) {
         PostInfo postInfo = getPostInfo();
 
         StringBuilder stringBuilder = new StringBuilder();
-        CharSequence title = PostContentFormatUtils.getFormatTitle(postInfo);
+        CharSequence title = getFormatTitle(postInfo, isGameBoard);
         if (!TextUtils.isEmpty(title)) {
             stringBuilder.append(title).append(PostContentFormatUtils.FIELD_SEPARATOR);
         }
@@ -557,7 +587,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         if (!TextUtils.isEmpty(postPrefix)) {
             stringBuilder.append(postPrefix).append(PostContentFormatUtils.FIELD_SEPARATOR);
         }
-        CharSequence detail = PostContentFormatUtils.getFormatDetail(postInfo);
+        CharSequence detail = getFormatDetail(postInfo, isGameBoard);
         stringBuilder.append(detail);
         String postSuffix = SettingPreferences.getString(R.string.p_key_post_suffix);
         if (!TextUtils.isEmpty(postSuffix)) {
@@ -566,6 +596,20 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
 
         ClipboardUtils.copyText(stringBuilder.toString());
         ToastUtils.showShort("已复制到剪贴板");
+    }
+
+    private String getFormatTitle(PostInfo postInfo, boolean isGameBoard) {
+        if (isGameBoard) {
+            return PostContentFormatUtils.getGameFormatTitle(postInfo);
+        }
+        return PostContentFormatUtils.getFormatTitle(postInfo);
+    }
+
+    private String getFormatDetail(PostInfo postInfo, boolean isGameBoard) {
+        if (isGameBoard) {
+            return PostContentFormatUtils.getGameFormatDetail(postInfo);
+        }
+        return PostContentFormatUtils.getFormatDetail(postInfo);
     }
 
     private void gotoApp() {
@@ -577,6 +621,11 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
         initActivityResultLauncher();
         initAppPicturesRecycleView();
         initAppMode();
+        initTitleRankPrefixSwitch();
+    }
+
+    private void initTitleRankPrefixSwitch() {
+        binding.switchTitleRankPrefix.setChecked(SettingPreferences.getBoolean(R.string.p_key_switch_title_rank_prefix));
     }
 
     private void initActivityResultLauncher() {
@@ -718,9 +767,17 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
             autoAppQuery(appName, packageName, onAppQueryListener);
         } else {
             isAppQuerying.set(true);
-            AppQueryManager.createQuerier(AppQueryManager.AppQueryChannel.values()[appQueryChannel].getChannel())
+            AppQueryManager.createQuerier(AppQueryManager.AppQueryChannel.values()[normalizeAppQueryChannel(appQueryChannel)].getChannel())
                     .query(appName, packageName, onAppQueryListener);
         }
+    }
+
+    private int normalizeAppQueryChannel(int appQueryChannel) {
+        AppQueryManager.AppQueryChannel[] channels = AppQueryManager.AppQueryChannel.values();
+        if (appQueryChannel < 0 || appQueryChannel >= channels.length) {
+            return 0;
+        }
+        return appQueryChannel;
     }
 
     private void initSpecialInstructionsSpinner() {
@@ -781,12 +838,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_item_translate) {
-            String text = binding.etGameIntroduction.getText().toString();
-            if (!TextUtils.isEmpty(text)) {
-                translateIntroduction(text);
-            } else {
-                ToastUtils.showShort("应用介绍为空");
-            }
+            translateIntroductionAndGameName();
             return true;
         } else if (item.getItemId() == R.id.menu_item_app_query) {
             String appName = binding.etGameName.getText().toString();
@@ -814,6 +866,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
     private void setAppMode(int mode) {
         if (mode == Constants.APP_MODE_GAME) {
             binding.tlGameName.setHint("游戏名称");
+            binding.tlGameChineseName.setHint("中文名称");
             binding.tlGamePackageName.setHint("游戏包名");
             binding.tlGameSize.setHint("游戏大小");
             binding.tlGameVersion.setHint("游戏版本");
@@ -823,6 +876,7 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
             binding.rbGameLanguageEnglishGame.setText("英文游戏");
         } else if (mode == Constants.APP_MODE_SOFTWARE) {
             binding.tlGameName.setHint("软件名称");
+            binding.tlGameChineseName.setHint("中文名称");
             binding.tlGamePackageName.setHint("软件包名");
             binding.tlGameSize.setHint("软件大小");
             binding.tlGameVersion.setHint("软件版本");
@@ -856,26 +910,48 @@ public class OriginalFragment extends BaseFragment<FragmentOriginalBinding, Main
                 .show();
     }
 
-    private ITranslate.OnTranslateListener getOnTranslateListener() {
-        if (onTranslateListener == null) {
-            onTranslateListener = new ITranslate.OnTranslateListener() {
+    private void translateIntroductionAndGameName() {
+        String introduction = binding.etGameIntroduction.getText().toString();
+        String gameName = binding.etGameName.getText().toString();
+        boolean hasTranslateContent = false;
+
+        if (!TextUtils.isEmpty(introduction)) {
+            hasTranslateContent = true;
+            translateText(introduction, new ITranslate.OnTranslateListener() {
                 @Override
                 public void onTranslateResult(int code, String msg, String result) {
                     if (code == ITranslate.OnTranslateListener.TRANSLATE_SUCCESS) {
                         binding.etGameIntroduction.setText(result);
                         binding.etGameIntroduction.setSelection(binding.etGameIntroduction.getText().length());
                     } else {
-                        ToastUtils.showShort(msg);
+                        ToastUtils.showShort("简介翻译失败：" + msg);
                     }
                 }
-            };
+            });
         }
-        return onTranslateListener;
+
+        if (!TextUtils.isEmpty(gameName)) {
+            hasTranslateContent = true;
+            translateText(gameName, new ITranslate.OnTranslateListener() {
+                @Override
+                public void onTranslateResult(int code, String msg, String result) {
+                    if (code == ITranslate.OnTranslateListener.TRANSLATE_SUCCESS) {
+                        binding.etGameChineseName.setText(result);
+                        binding.etGameChineseName.setSelection(binding.etGameChineseName.getText().length());
+                    } else {
+                        ToastUtils.showShort("游戏名翻译失败：" + msg);
+                    }
+                }
+            });
+        }
+
+        if (!hasTranslateContent) {
+            ToastUtils.showShort("简介和游戏名为空");
+        }
     }
 
-    private void translateIntroduction(String text) {
+    private void translateText(String text, ITranslate.OnTranslateListener onTranslateListener) {
         int transApi = Integer.parseInt(SettingPreferences.getString(R.string.p_key_current_translate_api, "0"));
-        ITranslate.OnTranslateListener onTranslateListener = getOnTranslateListener();
         if (transApi == -1) {
             ThreadUtils.executeBySingle(new ThreadUtils.SimpleTask<Object>() {
                 @Override
