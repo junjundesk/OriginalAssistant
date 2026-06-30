@@ -15,14 +15,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        release {
-            storeFile file('D:/xiaoyao.jks')
-            storePassword 'xiaoyao'
-            keyAlias 'xiaoyao'
-            keyPassword 'xiaoyao'
-        }
-    }
+  
 
     buildTypes {
         debug {
