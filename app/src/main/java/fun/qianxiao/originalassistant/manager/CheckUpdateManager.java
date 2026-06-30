@@ -169,17 +169,17 @@ public final class CheckUpdateManager {
                                                     .md5(newapkmd5)
                                                     .listener(new OnDownloadListener() {
                                                         @Override
-                                                        public void onStart(File file) {
+                                                        public void onDownloadStart(File file) {
 
                                                         }
 
                                                         @Override
-                                                        public void onProgress(File file, int progress) {
+                                                        public void onDownloadProgressChange(File file, int progress) {
                                                             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setText(progress + "%");
                                                         }
 
                                                         @Override
-                                                        public void onComplete(File file) {
+                                                        public void onDownloadSuccess(File file) {
                                                             if (!isforceupdate) {
                                                                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
                                                                 dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setText("暂不安装");
@@ -191,7 +191,7 @@ public final class CheckUpdateManager {
                                                         }
 
                                                         @Override
-                                                        public void onError(File file, Exception e) {
+                                                        public void onDownloadFail(File file, Throwable e) {
                                                             ToastUtils.showShort(e.toString());
                                                             dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
                                                             isUpdating = false;
@@ -199,7 +199,7 @@ public final class CheckUpdateManager {
                                                         }
 
                                                         @Override
-                                                        public void onEnd(File file) {
+                                                        public void onDownloadEnd(File file) {
 
                                                         }
                                                     })

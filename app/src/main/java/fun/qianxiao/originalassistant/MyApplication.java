@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.hjq.http.EasyConfig;
-import com.umeng.commonsdk.UMConfigure;
-
 import fun.qianxiao.originalassistant.config.AppConfig;
 import fun.qianxiao.originalassistant.other.RequestHandler;
 import okhttp3.OkHttpClient;
@@ -18,7 +16,6 @@ import okhttp3.OkHttpClient;
  */
 public class MyApplication extends Application {
     public static final String TAG = "OriginalAssistant";
-    public static final String UMENGG_APP_ID = "6443937f4c2b215d8040d98b";
     public static MyApplication myApplication;
 
     @Override
@@ -28,7 +25,6 @@ public class MyApplication extends Application {
 
         initEasyHttp();
         initLogger();
-        UMConfigure.setLogEnabled(BuildConfig.DEBUG);
     }
 
     private void initLogger() {
@@ -56,10 +52,9 @@ public class MyApplication extends Application {
     }
 
     /**
-     * 应监管要求，延迟初始化配置
+     * 友盟统计已关闭，保留空方法避免旧调用点崩溃。
      */
     public static void uengInit() {
-        UMConfigure.preInit(myApplication, UMENGG_APP_ID, "android");
-        UMConfigure.init(myApplication, UMENGG_APP_ID, "android", UMConfigure.DEVICE_TYPE_PHONE, "");
+        // no-op
     }
 }

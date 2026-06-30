@@ -80,6 +80,7 @@ public class SelectAppActivity extends BaseActivity<ActivitySelectAppBinding> im
 
     @Override
     protected void initData() {
+        setSupportActionBar(binding.selectToolbar);
         setTitle("选择应用");
         showBackIcon();
         binding.rvAppList.setLayoutManager(new LinearLayoutManager(context));
@@ -159,7 +160,7 @@ public class SelectAppActivity extends BaseActivity<ActivitySelectAppBinding> im
     private void initSearchView(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.menu_item_search);
         searchView = (SearchView) menuItem.getActionView();
-        View view = searchView.getRootView().findViewById(R.id.search_src_text);
+        View view = searchView.getRootView().findViewById(androidx.appcompat.R.id.search_src_text);
         if (view instanceof AutoCompleteTextView) {
             AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) view;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {

@@ -99,7 +99,7 @@ public class RequestHandler implements IRequestHandler {
 
     @NonNull
     @Override
-    public Exception requestFail(@NonNull HttpRequest<?> httpRequest, @NonNull Exception e) {
-        return null;
+    public Throwable requestFail(@NonNull HttpRequest<?> httpRequest, @NonNull Throwable e) {
+        return e;
     }
 }

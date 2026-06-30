@@ -17,6 +17,7 @@ import com.blankj.utilcode.util.SPUtils;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.ThreadUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.google.android.material.color.MaterialColors;
 import com.blankj.utilcode.util.UriUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -29,7 +30,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
 import java.io.File;
@@ -187,8 +187,8 @@ public class PostStatisticActivity extends BaseActivity<ActivityPostStatisticBin
         chart.setExtraOffsets(5, 10, 5, 5);
         chart.setDragDecelerationFrictionCoef(0.95f);
         chart.setDrawHoleEnabled(true);
-        chart.setHoleColor(Color.WHITE);
-        chart.setTransparentCircleColor(Color.WHITE);
+        chart.setHoleColor(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorSurface));
+        chart.setTransparentCircleColor(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorSurfaceContainerHigh));
         chart.setTransparentCircleAlpha(110);
         chart.setHoleRadius(58f);
         chart.setTransparentCircleRadius(61f);
@@ -212,7 +212,7 @@ public class PostStatisticActivity extends BaseActivity<ActivityPostStatisticBin
         l.setWordWrapEnabled(true);
         // entry label styling
         chart.setCenterTextSize(13);
-        chart.setEntryLabelColor(Color.WHITE);
+        chart.setEntryLabelColor(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorOnPrimary));
         chart.setEntryLabelTextSize(12f);
     }
 
@@ -315,28 +315,18 @@ public class PostStatisticActivity extends BaseActivity<ActivityPostStatisticBin
         dataSet.setSelectionShift(5f);
 
         ArrayList<Integer> colors = new ArrayList<>();
-        for (int c : ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(c);
-        }
-        for (int c : ColorTemplate.JOYFUL_COLORS) {
-            colors.add(c);
-        }
-        for (int c : ColorTemplate.COLORFUL_COLORS) {
-            colors.add(c);
-        }
-        for (int c : ColorTemplate.LIBERTY_COLORS) {
-            colors.add(c);
-        }
-        for (int c : ColorTemplate.PASTEL_COLORS) {
-            colors.add(c);
-        }
-        colors.add(ColorTemplate.getHoloBlue());
+        colors.add(MaterialColors.getColor(binding.getRoot(), androidx.appcompat.R.attr.colorPrimary));
+        colors.add(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorTertiary));
+        colors.add(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorSecondary));
+        colors.add(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorPrimaryContainer));
+        colors.add(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorSecondaryContainer));
+        colors.add(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorTertiaryContainer));
         dataSet.setColors(colors);
 
         PieData data = new PieData(dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(MaterialColors.getColor(binding.getRoot(), com.google.android.material.R.attr.colorOnPrimary));
         data.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {

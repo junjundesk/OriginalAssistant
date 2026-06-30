@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import androidx.core.content.ContextCompat;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.preference.EditTextPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -41,6 +43,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settingg);
+        Toolbar toolbar = findViewById(R.id.settingsToolbar);
+        setSupportActionBar(toolbar);
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -50,6 +54,7 @@ public class SettingsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setTitle("配置信息");
         }
     }
 
@@ -62,6 +67,8 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
+            view.setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_app_surface));
+            getListView().setBackground(ContextCompat.getDrawable(requireContext(), R.drawable.bg_app_surface));
             if (TextUtils.isEmpty(SettingPreferences.getString(R.string.p_key_special_instructions))) {
                 EditTextPreference etpSpecialInstructions = find(R.string.p_key_special_instructions);
                 String[] specialInstructionsDefault = getResources().getStringArray(R.array.special_instructions);

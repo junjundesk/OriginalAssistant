@@ -4,34 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_app_surface"
+    android:fitsSystemWindows="true"
     tools:context="fun.qianxiao.originalassistant.MainActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/bg_toolbar"
+        android:elevation="4dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:titleTextColor="?attr/colorOnSurface"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tabLayout" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainToolbar" />
 
-    <com.flyco.tablayout.CommonTabLayout
-        android:id="@+id/tabLayout"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="?attr/colorPrimary"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
+        android:layout_height="72dp"
+        android:background="@drawable/bg_bottom_nav"
+        android:elevation="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemRippleColor="?attr/colorPrimaryContainer"
+        app:itemTextColor="@color/nav_item_color"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tl_indicator_bounce_enable="false"
-        app:tl_iconVisible="false"
-        app:tl_indicator_corner_radius="1.5dp"
-        app:tl_indicator_height="3dp"
-        app:tl_indicator_width="10dp"
-        app:tl_indicator_gravity="BOTTOM"
-        app:tl_textsize="14sp"
-        app:tl_textBold="BOTH" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_main_bottom_nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

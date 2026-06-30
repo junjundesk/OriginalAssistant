@@ -1,64 +1,190 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.CommonApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/DeepSkyBlue</item>
-        <item name="colorPrimaryVariant">@color/DeepSkyBlue</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/DeepSkyBlue</item>
-        <item name="colorSecondaryVariant">@color/DeepSkyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.CommonApp" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_light_outlineVariant</item>
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="android:navigationBarColor">@color/md_theme_light_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="actionBarStyle">@style/Widget.OA.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.OA.ActionBar.Platform</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.OA.ActionBar</item>
+        <item name="toolbarStyle">@style/Widget.OA.Toolbar</item>
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="actionMenuTextColor">?attr/colorOnSurface</item>
+        <item name="android:popupMenuStyle">@style/Widget.OA.PopupMenu</item>
+        <item name="alertDialogTheme">@style/LightAlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/LightAlertDialog</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.OA</item>
+        <item name="materialButtonStyle">@style/Widget.OA.Button</item>
+        <item name="textInputStyle">@style/Widget.OA.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.OA.BottomNavigationView</item>
+        <item name="floatingActionButtonStyle">@style/Widget.OA.FloatingActionButton</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.OA.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.OA.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.OA.Large</item>
 
         <item name="DayColorPrimaryNightWhite">?attr/colorPrimary</item>
         <item name="DayColorPrimaryNightBlack80">?attr/colorPrimary</item>
-        <item name="DayColorPrimaryNightBlack80Pressed">@color/LightSkyBlue</item>
-        <item name="DayWhiteNightColorPrimaryDay">@color/white</item>
-        <item name="DayWhiteNightBlack">@color/white</item>
-        <item name="DayBlackNightWhite">@color/black</item>
-        <item name="DayDefaultTextViewNightWhite">#606060</item>
-        <item name="DayDefaultTextViewNightWhitePressed">#7C7C7C</item>
-        <item name="DayWhiteNightDeepGray">@color/white</item>
-        <item name="DayWhite95NightBlack91">@color/white95</item>
-
-        <item name="EditTextCursorColor">@color/DeepSkyBlue</item>
+        <item name="DayColorPrimaryNightBlack80Pressed">@color/oa_primary_pressed</item>
+        <item name="DayWhiteNightColorPrimaryDay">@color/md_theme_light_surfaceContainerLowest</item>
+        <item name="DayWhiteNightBlack">@color/md_theme_light_surfaceContainerLowest</item>
+        <item name="DayBlackNightWhite">@color/md_theme_light_onSurface</item>
+        <item name="DayDefaultTextViewNightWhite">@color/md_theme_light_onSurface</item>
+        <item name="DayDefaultTextViewNightWhitePressed">@color/md_theme_light_primary</item>
+        <item name="DayWhiteNightDeepGray">@color/md_theme_light_surfaceContainerLow</item>
+        <item name="DayWhite95NightBlack91">@color/md_theme_light_background</item>
+        <item name="EditTextCursorColor">@color/md_theme_light_primary</item>
         <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
-
-        <item name="FloatingActionButtonLabelBgColor">#72000000</item>
-        <item name="FloatingActionButtonNormalColor">?attr/colorPrimary</item>
-        <item name="FloatingActionButtonPressedColor">@color/SkyBlue</item>
-        <item name="RippleTransparentColor">#30808080</item>
-        <item name="IconItemMe">#606060</item>
-        <item name="DefaultTextViewColor">#606060</item>
-        <item name="DefaultTextViewColorPressed">#919191</item>
+        <item name="FloatingActionButtonLabelBgColor">#E6172033</item>
+        <item name="FloatingActionButtonNormalColor">?attr/colorPrimaryContainer</item>
+        <item name="FloatingActionButtonPressedColor">@color/md_theme_light_primary</item>
+        <item name="RippleTransparentColor">#26B85C38</item>
+        <item name="IconItemMe">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="DefaultTextViewColor">@color/md_theme_light_onSurface</item>
+        <item name="DefaultTextViewColorPressed">@color/md_theme_light_primary</item>
         <item name="android:textColor">@color/color_default_textview</item>
-        <item name="BgTestSelectItemColor">@color/white95</item>
-        <item name="BgTestSelectItemColorPressed">@color/white90</item>
+        <item name="BgTestSelectItemColor">@color/md_theme_light_surfaceContainerLowest</item>
+        <item name="BgTestSelectItemColorPressed">@color/md_theme_light_surfaceContainerHigh</item>
     </style>
 
-    <style name="Theme.CommonApp.NoActionBar">
+    <style name="Theme.CommonApp.NoActionBar" parent="Theme.CommonApp">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.CommonApp.WarmActionBar" parent="Theme.CommonApp">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="actionBarStyle">@style/Widget.OA.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.OA.ActionBar.Platform</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.OA.ActionBar</item>
+        <item name="android:windowActionModeOverlay">false</item>
+        <item name="android:windowBackground">@drawable/bg_app_surface</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_light_surfaceContainerHigh</item>
+        <item name="android:navigationBarColor">@color/md_theme_light_background</item>
+    </style>
+
+    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.OA.ActionBar" />
 
     <style name="SplashActivityTheme" parent="Theme.CommonApp.NoActionBar">
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowBackground">@color/md_theme_light_surface</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
     </style>
 
     <style name="fab_menu_labels_style">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/md_theme_light_onPrimary</item>
         <item name="android:background">@drawable/fab_label_background</item>
     </style>
 
-    <style name="LightAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorPrimary">@color/DeepSkyBlue</item>
+    <style name="LightAlertDialog" parent="Theme.Material3.Light.Dialog.Alert">
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorSurface">@color/md_theme_light_surfaceContainer</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        <item name="android:windowBackground">@color/md_theme_light_surfaceContainer</item>
     </style>
 
+    <style name="PreferenceThemeOverlay.OA" parent="@style/PreferenceThemeOverlay">
+        <item name="android:colorAccent">@color/md_theme_light_primary</item>
+        <item name="android:windowBackground">@drawable/bg_app_surface</item>
+    </style>
+
+    <style name="Widget.OA.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@drawable/bg_toolbar</item>
+        <item name="titleTextStyle">@style/TextAppearance.OA.ActionBar.Title</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="Widget.OA.ActionBar.Platform" parent="@android:style/Widget.Material.ActionBar.Solid">
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.OA.ActionBar.Title</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="Widget.OA.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="navigationIconTint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.OA.ActionBar" parent="ThemeOverlay.Material3.ActionBar">
+        <item name="colorPrimary">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onSurface</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="android:textColorPrimary">@color/md_theme_light_onSurface</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="TextAppearance.OA.ActionBar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/md_theme_light_onSurface</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Widget.OA.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/md_theme_light_surfaceContainer</item>
+    </style>
+
+    <style name="Widget.OA.Button" parent="Widget.Material3.Button">
+        <item name="cornerRadius">20dp</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+
+    <style name="Widget.OA.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxBackgroundColor">?attr/BgTestSelectItemColor</item>
+        <item name="hintTextColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.OA.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemActiveIndicatorStyle">@style/OA_NavigationBarActiveIndicator</item>
+        <item name="android:minHeight">64dp</item>
+    </style>
+
+    <style name="OA_NavigationBarActiveIndicator">
+        <item name="android:color">@color/md_theme_light_primaryContainer</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.OA.Pill</item>
+    </style>
+
+    <style name="Widget.OA.FloatingActionButton" parent="Widget.Material3.FloatingActionButton.Primary">
+        <item name="shapeAppearance">@style/ShapeAppearance.OA.Pill</item>
+    </style>
+
+    <style name="ShapeAppearance.OA.Small" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">12dp</item>
+    </style>
+    <style name="ShapeAppearance.OA.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">18dp</item>
+    </style>
+    <style name="ShapeAppearance.OA.Large" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">28dp</item>
+    </style>
+    <style name="ShapeAppearance.OA.Pill" parent="ShapeAppearance.Material3.Corner.Full" />
 </resources>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_app_surface"
     tools:context="fun.qianxiao.originalassistant.activity.AboutActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -11,6 +12,7 @@
         android:fitsSystemWindows="true"
         android:layout_height="@dimen/app_bar_height"
         android:layout_width="match_parent"
+        android:background="@drawable/bg_toolbar"
         android:theme="@style/Theme.MyApplication.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -19,17 +21,19 @@
             android:fitsSystemWindows="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_toolbar"
             app:toolbarId="@+id/toolbar"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary">
+            app:contentScrim="?attr/colorSurfaceVariant">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_height="?attr/actionBarSize"
                 android:layout_width="match_parent"
+                android:background="@drawable/bg_toolbar"
                 app:layout_collapseMode="pin"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                app:theme="@style/ThemeOverlay.OA.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.OA.ActionBar" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -43,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/fab_margin"
-        app:tint="@color/white"
+        app:tint="?attr/colorOnPrimary"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
         app:backgroundTint="?attr/colorPrimary"

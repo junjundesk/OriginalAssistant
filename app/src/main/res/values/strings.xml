@@ -6,7 +6,7 @@
     <string name="p_key_team_name">p_key_team_name</string>
     <string name="p_key_title_format">p_key_title_format</string>
     <string name="p_key_switch_title_rank_prefix">p_key_switch_title_rank_prefix</string>
-    <string name="post_title_format_default">【%s原创】%s.ver.%s</string>
+    <string name="post_title_format_default" formatted="false">【%s原创】%s.ver.%s</string>
     <string name="p_key_special_instructions">p_key_special_instructions</string>
     <string name="p_key_post_prefix">p_key_post_prefix</string>
     <string name="p_key_post_suffix">p_key_post_suffix</string>

@@ -8,8 +8,6 @@ import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ThreadUtils;
-import com.flyco.tablayout.listener.CustomTabEntity;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +40,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
         implements ILoadingView, NetworkUtils.OnNetworkStatusChangedListener {
     private final String[] PAGES_TITLES = new String[]{"原创助手", "测试助手", "发现", "我的"};
     private final String[] PAGES_TAB_TEXTS = new String[]{"原创", "测试", "发现", "我的"};
-    private final ArrayList<CustomTabEntity> tabEntities = new ArrayList<>();
+    private final int[] NAV_ITEM_IDS = new int[]{R.id.nav_original, R.id.nav_test, R.id.nav_find, R.id.nav_me};
     private List<BaseFragment<?, MainActivity>> fragments = new ArrayList<>();
     private int currentPosition;
     private MyLoadingDialog loadingDialog;
@@ -57,9 +55,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
 
             @Override
             public void onPageSelected(int position) {
-                if (binding.tabLayout.getCurrentTab() != position) {
-                    binding.tabLayout.setCurrentTab(position);
-                    currentPosition = position;
+                currentPosition = position;
+                if (position >= 0 && position < NAV_ITEM_IDS.length
+                        && binding.bottomNavigation.getSelectedItemId() != NAV_ITEM_IDS[position]) {
+                    binding.bottomNavigation.setSelectedItemId(NAV_ITEM_IDS[position]);
                 }
                 if (position >= 0 && position < PAGES_TITLES.length) {
                     setTitle(PAGES_TITLES[position]);
@@ -71,25 +70,24 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
 
             }
         });
-        binding.tabLayout.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelect(int position) {
-                if (binding.viewPager.getCurrentItem() != position) {
-                    KeyboardUtils.hideSoftInput(getWindow());
-                    binding.viewPager.setCurrentItem(position);
-                }
+        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+            int position = getPositionByNavItemId(item.getItemId());
+            if (position < 0) {
+                return false;
             }
-
-            @Override
-            public void onTabReselect(int position) {
-
+            if (binding.viewPager.getCurrentItem() != position) {
+                KeyboardUtils.hideSoftInput(getWindow());
+                binding.viewPager.setCurrentItem(position);
             }
+            return true;
         });
         NetworkUtils.registerNetworkStatusChangedListener(this);
     }
 
     @Override
     protected void initData() {
+        setSupportActionBar(binding.mainToolbar);
+        setTitle(PAGES_TITLES[currentPosition]);
         preLoadAppList();
         initNetWorkState();
         PrivacyPolicyManager privacyPolicyManager = PrivacyPolicyManager.getInstance();
@@ -119,7 +117,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
     }
 
     private void initAfterPolicy() {
-        MyApplication.uengInit();
         checkUpdateSilent();
     }
 
@@ -154,30 +151,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
         MyPageAdapter adapter = new MyPageAdapter(getSupportFragmentManager(), fragments, PAGES_TAB_TEXTS);
         binding.viewPager.setAdapter(adapter);
         binding.viewPager.setOffscreenPageLimit(4);
-        tabEntities.clear();
-        for (int i = 0; i < PAGES_TAB_TEXTS.length; i++) {
-            int finalI = i;
-            tabEntities.add(new CustomTabEntity() {
-                @Override
-                public String getTabTitle() {
-                    return PAGES_TAB_TEXTS[finalI];
-                }
-
-                @Override
-                public int getTabSelectedIcon() {
-                    return 0;
-                }
-
-                @Override
-                public int getTabUnselectedIcon() {
-                    return 0;
-                }
-            });
-        }
-        binding.tabLayout.setTabData(tabEntities);
         if (SettingPreferences.getBoolean(R.string.p_key_switch_auto_test_tab_when_enter_app)) {
             binding.viewPager.setCurrentItem(1, false);
         }
+    }
+
+
+    private int getPositionByNavItemId(int itemId) {
+        for (int i = 0; i < NAV_ITEM_IDS.length; i++) {
+            if (NAV_ITEM_IDS[i] == itemId) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     private void preLoadAppList() {
@@ -196,9 +182,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>
 
     public void setTabNavigationHide(boolean hide) {
         if (hide) {
-            binding.tabLayout.setVisibility(View.INVISIBLE);
+            binding.bottomNavigation.setVisibility(View.INVISIBLE);
         } else {
-            binding.tabLayout.setVisibility(View.VISIBLE);
+            binding.bottomNavigation.setVisibility(View.VISIBLE);
         }
     }
 

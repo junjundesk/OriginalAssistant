@@ -27,6 +27,25 @@
 #-----obfuse dictionary config-----
 
 #-----app self-----
+
+# Preserve generic type metadata used by reflection-based generic base classes.
+-keepattributes Signature,InnerClasses,EnclosingMethod
+-keep class fun.qianxiao.originalassistant.base.BaseActivity { *; }
+-keep class fun.qianxiao.originalassistant.base.BaseFragment { *; }
+-keep class fun.qianxiao.originalassistant.activity.test.BaseTestActivity { *; }
+-keep class fun.qianxiao.originalassistant.base.BaseAdapter { *; }
+-keep class fun.qianxiao.originalassistant.base.BaseRecycleViewHolder { *; }
+-keep class fun.qianxiao.originalassistant.base.BaseAlertDialog { *; }
+-keep class fun.qianxiao.originalassistant.appquery.AbstractAppQuerier { *; }
+-keep class fun.qianxiao.originalassistant.translate.AbstractTranslate { *; }
+-keep class * extends fun.qianxiao.originalassistant.base.BaseActivity { *; }
+-keep class * extends fun.qianxiao.originalassistant.base.BaseFragment { *; }
+-keep class * extends fun.qianxiao.originalassistant.activity.test.BaseTestActivity { *; }
+-keep class * extends fun.qianxiao.originalassistant.base.BaseAdapter { *; }
+-keep class * extends fun.qianxiao.originalassistant.base.BaseRecycleViewHolder { *; }
+-keep class * extends fun.qianxiao.originalassistant.base.BaseAlertDialog { *; }
+-keep class * extends fun.qianxiao.originalassistant.appquery.AbstractAppQuerier { *; }
+-keep class * extends fun.qianxiao.originalassistant.translate.AbstractTranslate { *; }
 #binding reflect
 -keep public class * implements androidx.viewbinding.ViewBinding {
     public inflate(android.view.LayoutInflater);
@@ -49,16 +68,3 @@
 #-----brankj-----
 #-keep class com.blankj.utilcode.util.** {*;}
 #-----brankj-----
-
-#-----umeng-----
--keep class com.umeng.** {*;}
--keep class org.repackage.** {*;}
--keepclassmembers class * {
-   public <init> (org.json.JSONObject);
-}
--keepclassmembers enum * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-#-----umeng-----
-

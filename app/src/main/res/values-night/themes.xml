@@ -1,51 +1,138 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.CommonApp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/black</item>
-        <item name="colorPrimaryVariant">@color/DeepGray</item>
-        <item name="colorOnPrimary">@color/black</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/DeepSkyBlue</item>
-        <item name="colorSecondaryVariant">@color/SkyBlue</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
-
-        <item name="DayColorPrimaryNightWhite">@color/white</item>
-        <item name="DayColorPrimaryNightBlack80">@color/black91</item>
-        <item name="DayColorPrimaryNightBlack80Pressed">@color/black87</item>
-        <item name="DayWhiteNightColorPrimaryDay">@color/DeepSkyBlue</item>
-        <item name="DayWhiteNightBlack">@color/black</item>
-        <item name="DayBlackNightWhite">@color/white</item>
-        <item name="DayDefaultTextViewNightWhite">@color/white</item>
-        <item name="DayDefaultTextViewNightWhitePressed">#DDDDDD</item>
-        <item name="DayWhiteNightDeepGray">@color/DeepGray</item>
-        <item name="DayWhite95NightBlack91">@color/black91</item>
-
-        <item name="EditTextCursorColor">@color/white</item>
+    <style name="Theme.CommonApp" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_dark_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_dark_onPrimaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_dark_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_dark_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_dark_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_dark_onSecondaryContainer</item>
+        <item name="colorTertiary">@color/md_theme_dark_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_dark_onTertiary</item>
+        <item name="android:colorBackground">@color/md_theme_dark_background</item>
+        <item name="colorOnBackground">@color/md_theme_dark_onBackground</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurfaceVariant">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_dark_outline</item>
+        <item name="colorOutlineVariant">@color/md_theme_dark_outlineVariant</item>
+        <item name="colorError">@color/md_theme_dark_error</item>
+        <item name="colorOnError">@color/md_theme_dark_onError</item>
+        <item name="android:windowBackground">@color/md_theme_dark_background</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="android:navigationBarColor">@color/md_theme_dark_background</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="actionBarStyle">@style/Widget.OA.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.OA.ActionBar.Platform</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.OA.ActionBar</item>
+        <item name="toolbarStyle">@style/Widget.OA.Toolbar</item>
+        <item name="colorControlNormal">?attr/colorOnSurface</item>
+        <item name="actionMenuTextColor">?attr/colorOnSurface</item>
+        <item name="android:popupMenuStyle">@style/Widget.OA.PopupMenu</item>
+        <item name="alertDialogTheme">@style/LightAlertDialog</item>
+        <item name="materialAlertDialogTheme">@style/LightAlertDialog</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.OA</item>
+        <item name="materialButtonStyle">@style/Widget.OA.Button</item>
+        <item name="textInputStyle">@style/Widget.OA.TextInputLayout</item>
+        <item name="bottomNavigationStyle">@style/Widget.OA.BottomNavigationView</item>
+        <item name="floatingActionButtonStyle">@style/Widget.OA.FloatingActionButton</item>
+        <item name="DayColorPrimaryNightWhite">@color/md_theme_dark_primary</item>
+        <item name="DayColorPrimaryNightBlack80">@color/md_theme_dark_primaryContainer</item>
+        <item name="DayColorPrimaryNightBlack80Pressed">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="DayWhiteNightColorPrimaryDay">@color/md_theme_dark_primaryContainer</item>
+        <item name="DayWhiteNightBlack">@color/md_theme_dark_surfaceContainerLow</item>
+        <item name="DayBlackNightWhite">@color/md_theme_dark_onSurface</item>
+        <item name="DayDefaultTextViewNightWhite">@color/md_theme_dark_onSurface</item>
+        <item name="DayDefaultTextViewNightWhitePressed">@color/md_theme_dark_primary</item>
+        <item name="DayWhiteNightDeepGray">@color/md_theme_dark_surfaceContainerLow</item>
+        <item name="DayWhite95NightBlack91">@color/md_theme_dark_background</item>
+        <item name="EditTextCursorColor">@color/md_theme_dark_primary</item>
         <item name="android:textCursorDrawable">@drawable/edit_text_cursor</item>
-
-        <item name="FloatingActionButtonLabelBgColor">#28ffffff</item>
-        <item name="FloatingActionButtonNormalColor">#444444</item>
-        <item name="FloatingActionButtonPressedColor">#222222</item>
-        <item name="RippleTransparentColor">#21F5F5F5</item>
-        <item name="IconItemMe">#888888</item>
-        <item name="DefaultTextViewColor">#b8b8b8</item>
-        <item name="DefaultTextViewColorPressed">#EAEAEA</item>
+        <item name="FloatingActionButtonLabelBgColor">#E6111827</item>
+        <item name="FloatingActionButtonNormalColor">@color/md_theme_dark_primaryContainer</item>
+        <item name="FloatingActionButtonPressedColor">@color/md_theme_dark_primary</item>
+        <item name="RippleTransparentColor">#33FFFFFF</item>
+        <item name="IconItemMe">@color/md_theme_dark_onSurfaceVariant</item>
+        <item name="DefaultTextViewColor">@color/md_theme_dark_onSurface</item>
+        <item name="DefaultTextViewColorPressed">@color/md_theme_dark_primary</item>
         <item name="android:textColor">@color/color_default_textview</item>
-        <item name="BgTestSelectItemColor">@color/black91</item>
-        <item name="BgTestSelectItemColorPressed">@color/black87</item>
+        <item name="BgTestSelectItemColor">@color/md_theme_dark_surfaceContainerLow</item>
+        <item name="BgTestSelectItemColorPressed">@color/md_theme_dark_surfaceContainerHigh</item>
     </style>
 
-    <style name="Theme.CommonApp.NoActionBar">
+    <style name="Theme.CommonApp.NoActionBar" parent="Theme.CommonApp">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_dark_surfaceContainerHigh</item>
     </style>
 
-    <style name="LightAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="colorPrimary">@color/black</item>
+    <style name="Theme.CommonApp.WarmActionBar" parent="Theme.CommonApp">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="actionBarStyle">@style/Widget.OA.ActionBar</item>
+        <item name="android:actionBarStyle">@style/Widget.OA.ActionBar.Platform</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.OA.ActionBar</item>
+        <item name="android:windowActionModeOverlay">false</item>
+        <item name="android:windowBackground">@drawable/bg_app_surface</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/md_theme_dark_surfaceContainerHigh</item>
+        <item name="android:navigationBarColor">@color/md_theme_dark_background</item>
+    </style>
+
+    <style name="SplashActivityTheme" parent="Theme.CommonApp.NoActionBar">
+        <item name="android:windowBackground">@color/md_theme_dark_surface</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+    </style>
+
+    <style name="LightAlertDialog" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="colorPrimary">@color/md_theme_dark_primary</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="colorOnSurface">@color/md_theme_dark_onSurface</item>
+        <item name="android:windowBackground">@color/md_theme_dark_surface</item>
+    </style>
+
+    <style name="PreferenceThemeOverlay.OA" parent="@style/PreferenceThemeOverlay">
+        <item name="android:colorAccent">@color/md_theme_dark_primary</item>
+        <item name="android:windowBackground">@drawable/bg_app_surface</item>
+    </style>
+
+    <style name="Widget.OA.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
+        <item name="background">@drawable/bg_toolbar</item>
+        <item name="titleTextStyle">@style/TextAppearance.OA.ActionBar.Title</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="Widget.OA.ActionBar.Platform" parent="@android:style/Widget.Material.ActionBar.Solid">
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="android:titleTextStyle">@style/TextAppearance.OA.ActionBar.Title</item>
+        <item name="android:elevation">4dp</item>
+    </style>
+
+    <style name="Widget.OA.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@drawable/bg_toolbar</item>
+        <item name="titleTextColor">?attr/colorOnSurface</item>
+        <item name="navigationIconTint">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="ThemeOverlay.OA.ActionBar" parent="ThemeOverlay.Material3.ActionBar">
+        <item name="colorPrimary">@color/md_theme_dark_surfaceVariant</item>
+        <item name="colorOnPrimary">@color/md_theme_dark_onSurface</item>
+        <item name="colorSurface">@color/md_theme_dark_surface</item>
+        <item name="android:textColorPrimary">@color/md_theme_dark_onSurface</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="TextAppearance.OA.ActionBar.Title" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/md_theme_dark_onSurface</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="Widget.OA.PopupMenu" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@color/md_theme_dark_surface</item>
     </style>
 </resources>

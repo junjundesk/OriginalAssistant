@@ -2,14 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="?attr/DayColorPrimaryNightBlack80Pressed" />
-            <corners android:radius="8dp" />
+            <solid android:color="?attr/FloatingActionButtonPressedColor" />
+            <corners android:radius="999dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="?attr/DayColorPrimaryNightBlack80" />
-            <corners android:radius="8dp" />
+            <solid android:color="?attr/colorPrimary" />
+            <corners android:radius="999dp" />
         </shape>
     </item>
 </selector>

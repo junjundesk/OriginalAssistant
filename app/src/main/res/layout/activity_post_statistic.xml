@@ -3,7 +3,7 @@
     android:id="@+id/sv_statistic"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/DayWhiteNightBlack"
+    android:background="@drawable/bg_app_surface"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="开始统计"
-                android:textColor="@color/white"
+                android:textColor="?attr/colorOnPrimary"
                 android:background="@drawable/bg_signin"
                 android:paddingHorizontal="12dp"
                 android:paddingVertical="4dp"
