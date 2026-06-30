@@ -113,7 +113,7 @@ public class PostContentFormatUtils {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(fieldNameAppName).append(postInfo.getAppName()).append(FIELD_SEPARATOR_DOUBLE);
         appendChineseNameFieldIfNotEmpty(stringBuilder, fieldNameAppChineseName, postInfo);
-        stringBuilder.append(fieldNameAppLanguage).append(postInfo.getAppLanguage()).append(FIELD_SEPARATOR_DOUBLE);
+        stringBuilder.append(fieldNameAppLanguage).append(getAppLanguageText(postInfo)).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(fieldNameAppSize).append(postInfo.getAppSize()).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(fieldNameAppVersion).append(postInfo.getAppVersionName()).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(fieldNameAppPackageName).append(postInfo.getAppPackageName()).append(FIELD_SEPARATOR_DOUBLE);
@@ -142,7 +142,7 @@ public class PostContentFormatUtils {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(fieldNameAppName).append(postInfo.getAppName()).append(FIELD_SEPARATOR_DOUBLE);
         appendChineseNameFieldIfNotEmpty(stringBuilder, fieldNameAppChineseName, postInfo);
-        stringBuilder.append(fieldNameAppLanguage).append(postInfo.getAppLanguage()).append(FIELD_SEPARATOR_DOUBLE);
+        stringBuilder.append(fieldNameAppLanguage).append(getAppLanguageText(postInfo)).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(fieldNameAppPackageName).append(postInfo.getAppPackageName()).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(FIELD_NAME_GAME_REGION).append(FIELD_VALUE_GAME_REGION_NON_MAINLAND_CHINA).append(FIELD_SEPARATOR_DOUBLE);
         stringBuilder.append(fieldNameAppSize).append(postInfo.getAppSize()).append(FIELD_SEPARATOR_DOUBLE);
@@ -154,6 +154,22 @@ public class PostContentFormatUtils {
         stringBuilder.append(fieldNameAppDownloadUrl).append(FIELD_SEPARATOR).append(filterUcDriveDownloadUrl(postInfo.getAppDownloadUrl()));
 
         return stringBuilder.toString();
+    }
+
+    private static String getAppLanguageText(PostInfo postInfo) {
+        if (postInfo == null || postInfo.getAppLanguage() == null) {
+            return "";
+        }
+        switch (postInfo.getAppLanguage()) {
+            case CHINESE:
+                return "中文";
+            case ENGLISH:
+                return "英文";
+            case OTHER:
+                return "其他";
+            default:
+                return postInfo.getAppLanguage().toString();
+        }
     }
 
     private static String filterUcDriveDownloadUrl(CharSequence downloadUrl) {
